@@ -1,0 +1,897 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OMD Clothing - Premium Fashion</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+:root {
+  --primary-bg: #0e1a2b;     /* Navy */
+  --accent: #b87333;         /* Copper */
+  --muted: #999999;
+  --white: #ffffff;
+  --black: #000000;
+  --text: #f5f5f5;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--primary-bg);
+  color: var(--text);
+  padding-top: 70px;
+  scroll-behavior: smooth;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--primary-bg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 999;
+  padding: 1rem 2rem;
+}
+
+.navbar .nav-brand {
+  display: block;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: var(--accent);
+}
+
+.navbar nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.navbar nav ul li a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.navbar nav ul li a:hover {
+  color: var(--accent);
+}
+
+.hamburger {
+  display: none;
+  position: absolute;
+  right: 20px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    justify-content: space-between;
+  }
+  .hamburger {
+    display: block;
+  }
+  .navbar nav ul {
+    flex-direction: column;
+    background: var(--primary-bg);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+  }
+  .navbar.active nav ul {
+    display: flex;
+  }
+}
+
+section {
+  scroll-margin-top: 100px;
+  padding: 4rem 2rem;
+}
+
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: brightness(0.4);
+}
+
+.hero .hero-overlay {
+  z-index: 1;
+  position: relative;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: auto;
+}
+
+/* Collections */
+.collections {
+  background-color: var(--white);
+  color: var(--black);
+  padding: 6rem 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--muted);
+  font-size: 1.1rem;
+  margin-bottom: 4rem;
+}
+
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.collection-card {
+  overflow: hidden;
+  border-radius: 16px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.collection-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.collection-info {
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  color: var(--white);
+  padding: 1.5rem;
+  width: 100%;
+  transition: opacity 0.4s ease;
+}
+
+.collection-card:hover img {
+  transform: scale(1.1);
+}
+
+.collection-card:hover .collection-info {
+  opacity: 1;
+}
+
+/* Lookbook */
+.lookbook-builder {
+  text-align: center;
+}
+
+.lookbook-stage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.model-preview {
+  position: relative;
+  width: 250px;
+  height: 500px;
+  background: var(--white);
+  border-radius: 12px;
+}
+
+.model-preview img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.lookbook-options {
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.item-group {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.item-group h4 {
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.item-group img {
+  width: 60px;
+  margin: 0.3rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+  border-radius: 6px;
+}
+
+.item-group img:hover {
+  transform: scale(1.05);
+}
+
+/* Testimonials */
+.testimonials {
+  background: linear-gradient(135deg, var(--primary-bg), var(--black));
+  color: var(--text);
+  text-align: center;
+  padding: 6rem 2rem;
+}
+
+.testimonials h2 {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.testimonial-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.testimonial {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 300px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.testimonial:hover {
+  transform: translateY(-5px);
+}
+
+.testimonial img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  object-fit: cover;
+}
+
+.testimonial-slider {
+  position: relative;
+  
+  max-width: 900px;
+  margin: auto;
+  
+}
+
+.testimonial-wrapper {
+  overflow: hidden;
+  max-width: 900px;
+  width: 100%;
+  margin: auto;
+  
+  
+}
+
+.testimonial-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  gap:0.3rem;
+  padding: 1rem 0;
+}
+
+.testimonial {
+  flex: 0 0 calc(33.333% - 1.33rem);
+  box-sizing: border-box;
+  padding: 2rem;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 2rem;
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--orange);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 5px;
+}
+
+.slider-btn.prev {
+  left: 0;
+}
+
+.slider-btn.next {
+  right: 0;
+}
+
+/* About */
+.about {
+  position: relative;
+  background-color: var(--primary-bg);
+  color: var(--text);
+  padding: 8rem 2rem;
+  overflow: hidden;
+}
+
+.about-bg {
+  background: url('https://images.unsplash.com/photo-1618151313441-cd646d740848?auto=format&fit=crop&w=1400&q=80') no-repeat center center/cover;
+  filter: brightness(0.3);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+.about-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about h2 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+}
+
+.about p {
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  color: var(--muted);
+}
+
+.pillars {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pillar {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 2rem;
+  width: 250px;
+  transition: transform 0.3s ease;
+}
+
+.pillar:hover {
+  transform: translateY(-8px);
+}
+
+.pillar i {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+/* Stats */
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 5rem 2rem;
+  background: var(--white);
+  color: var(--black);
+  text-align: center;
+}
+
+.stat-box h3 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-box p {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Misc */
+#cartSticky {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: var(--accent);
+  color: var(--white);
+  border-radius: 50%;
+  padding: 15px;
+  font-size: 1.2rem;
+  z-index: 999;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.newsletter {
+  background: var(--accent);
+  color: var(--white);
+  text-align: center;
+  padding: 5rem 2rem;
+}
+
+.newsletter-form {
+  margin-top: 2rem;
+}
+
+.newsletter-form input {
+  padding: 1rem;
+  width: 280px;
+  max-width: 100%;
+  border: none;
+  border-radius: 30px 0 0 30px;
+  outline: none;
+}
+
+.newsletter-form button {
+  padding: 1rem 2rem;
+  background: var(--primary-bg);
+  border: none;
+  border-radius: 0 30px 30px 0;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.footer {
+  background: #121212;
+  color: var(--text);
+  padding: 4rem 2rem 2rem;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-brand {
+  flex: 1 1 250px;
+}
+
+.footer-brand h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer-brand p {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  max-width: 300px;
+}
+
+
+.social-icons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+
+.social-icons a {
+  color: var(--white);
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: var(--accent);
+}
+
+.footer-links {
+  display: flex;
+  gap: 3rem;
+  flex: 2 1 600px;
+  justify-content: space-between;
+}
+
+.footer-links h4 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-links ul li a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.footer-links ul li a:hover {
+  color: var(--accent);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.footer-legal a {
+  color: var(--muted);
+  margin-left: 1rem;
+  text-decoration: none;
+}
+
+.footer-legal a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .footer-legal {
+    justify-content: center;
+  }
+}
+  </style>
+</head>
+<body>
+
+<header class="navbar" id="navbar">
+  <div class="nav-brand">OMD  - Premium Fashion</div>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+  <nav>
+    <ul>
+       <li><a href="#hero">Home</a></li>
+      <li><a href="#collections">Collections</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#stats">Stats</a></li>
+      <li><a href="#newsletter">Newsletter</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero" id="hero">
+  <video autoplay muted loop playsinline>
+    <source src="src/WhatsApp Video 2025-05-22 at 14.13.20_0b49e5c6.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-overlay">
+    <h1>Redefine <span style="color: var(--lilac)">Luxury</span></h1>
+    <p>Where timeless design meets modern elegance.</p>
+  </div>
+</section>
+
+ <!--Collection-->
+  <section class="collections" id="collections">
+  <div class="container">
+    <h2 class="section-title">Featured Collections</h2>
+    <p class="section-subtitle">Explore timeless styles crafted for every season</p>
+
+    <div class="collection-grid">
+      <div class="collection-card">
+        <img src="src/premiumcollection.jpg" alt="Premium Collection"/>
+        <div class="collection-info">
+          <h3>Premium Collection</h3>
+          <p>Luxury essentials made with the finest fabrics.</p>
+        </div>
+      </div>
+      <div class="collection-card">
+        <img src="src/casual.jpg" alt="Casual Wear"/>
+        <div class="collection-info">
+          <h3>Casual Wear</h3>
+          <p>Stylish comfort for your daily lifestyle.</p>
+        </div>
+      </div>
+      <div class="collection-card">
+        <img src="src/seasonal.jpg" alt="Seasonal Trends"/>
+        <div class="collection-info">
+          <h3>Seasonal Trends</h3>
+          <p>Curated pieces to match the moment.</p>
+        </div>
+      </div>
+
+      <div class="collection-card">
+        <img src="src/traditional.jpg" alt="Traditional Wear"/>
+        <div class="collection-info">
+          <h3>Traditional Wear</h3>
+          <p>Represent your culture with your outfit.</p>
+        </div>
+      </div>  
+
+      <div class="collection-card">
+        <img src="src/sports.jpg" alt="Sports Wear"/>
+        <div class="collection-info">
+          <h3>Sports Wear</h3>
+          <p>Ad a little style in your sports.</p>
+        </div>
+      </div>
+
+      <div class="collection-card">
+        <img src="src/summer.jpg" alt="Summer Wear Wear"/>
+        <div class="collection-info">
+          <h3>Summer Wear</h3>
+          <p>Dressed for the sunny side of life.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--About Section-->
+<section class="about" id="about">
+  <div class="about-bg"></div>
+  <div class="about-content">
+    <h2>Our Story</h2>
+    <p>
+      Founded in 2015, OMD Clothing emerged with a mission: to combine timeless elegance with contemporary design.
+    </p>
+    <div class="pillars">
+      <div class="pillar">
+        <i class="fas fa-leaf"></i>
+        <h3>Sustainable</h3>
+        <p>Eco-conscious materials with ethical production.</p>
+      </div>
+      <div class="pillar">
+        <i class="fas fa-award"></i>
+        <h3>Quality</h3>
+        <p>Premium fabric and refined craftsmanship.</p>
+      </div>
+      <div class="pillar">
+        <i class="fas fa-heart"></i>
+        <h3>Customer First</h3>
+        <p>Every decision is made with you in mind.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--testimonial-->
+<section class="testimonials" id="testimonials">
+  <h2>What Our Customers Say</h2>
+  <div class="testimonial-slider">
+    <button class="slider-btn prev" onclick="moveSlide(-1)">‹</button>
+
+    <div class="testimonial-wrapper">
+    <div class="testimonial-track">
+      <div class="testimonial">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client 1">
+        <p>Absolutely love the quality and design. Worth every cent!</p>
+        <h4>Amelia B.</h4>
+      </div>
+      <div class="testimonial">
+        <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Client 2">
+        <p>OMD is now my go-to brand for classy outfits.</p>
+        <h4>Jake L.</h4>
+      </div>
+      <div class="testimonial">
+        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Client 3">
+        <p>Customer service was incredible, and shipping was fast.</p>
+        <h4>Sophia R.</h4>
+      </div>
+      <div class="testimonial">
+        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Client 4">
+        <p>Quality exceeded my expectations. Will order again.</p>
+        <h4>Linda K.</h4>
+      </div>
+      <div class="testimonial">
+        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Client 5">
+        <p>Every piece feels tailored. Truly premium.</p>
+        <h4>David M.</h4>
+      </div>
+      <div class="testimonial">
+        <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Client 6">
+        <p>Great designs and fast delivery.</p>
+        <h4>Chris T.</h4>
+      </div>
+      <div class="testimonial">
+  <img src="https://randomuser.me/api/portraits/women/21.jpg" alt="Client 7">
+  <p>"I've never felt more confident wearing clothes until I found OMD."</p>
+  <h4>Elena M.</h4>
+</div>
+
+<div class="testimonial">
+  <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Client 8">
+  <p>"Every detail, from packaging to stitching, screams luxury."</p>
+  <h4>Marcus W.</h4>
+</div>
+
+<div class="testimonial">
+  <img src="https://randomuser.me/api/portraits/women/23.jpg" alt="Client 9">
+  <p>"They nailed comfort, elegance, and sustainability all in one."</p>
+  <h4>Grace T.</h4>
+</div>
+    </div>
+
+    <button class="slider-btn next" onclick="moveSlide(1)">›</button>
+  </div>
+  </div>
+</section>
+
+<!--stats-->
+<section class="stats" id="stats">
+  <div class="stat-box">
+    <h3 class="counter" data-target="10000">0</h3>
+    <p>Happy Customers</p>
+  </div>
+  <div class="stat-box">
+    <h3 class="counter" data-target="7">0</h3>
+    <p>Years in Fashion</p>
+  </div>
+  <div class="stat-box">
+    <h3 class="counter" data-target="55">0</h3>
+    <p>Awards Won</p>
+  </div>
+</section>
+
+<section class="newsletter" id="newsletter">
+  <h2>Subscribe to Our Updates</h2>
+  <p>Get exclusive offers and new arrivals before anyone else.</p>
+  <form class="newsletter-form">
+    <input type="email" placeholder="Your email address" required />
+    <button type="submit">Subscribe</button>
+  </form>
+</section>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <h3>OMD <span style="color: var(--accent)">Clothing</span></h3>
+      <p>Premium fashion for the modern individual. Quality, style, and sustainability at the core of everything we do.</p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-pinterest"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">Men’s Collection</a></li>
+          <li><a href="#">Women’s Collection</a></li>
+          <li><a href="#">Accessories</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Customer Service</h4>
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Shipping & Returns</a></li>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Track Order</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>About</h4>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 OMD Clothing. All rights reserved.</p>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Policy</a>
+    </div>
+  </div>
+</footer>
+<script>
+  function toggleMenu() {
+    document.getElementById("navbar").classList.toggle("active");
+  }
+
+  let currentSlide = 0;
+
+  function moveSlide(direction) {
+    const track = document.querySelector('.testimonial-track');
+    const wrapper = document.querySelector('.testimonial-wrapper');
+    const testimonials = document.querySelectorAll('.testimonial');
+    const testimonialsPerPage = 3;
+    const totalSlides = Math.ceil(testimonials.length / testimonialsPerPage);
+
+    currentSlide += direction;
+    if (currentSlide < 0) currentSlide = 0;
+    if (currentSlide > totalSlides - 1) currentSlide = totalSlides - 1;
+
+    const slideWidth = wrapper.offsetWidth;
+    track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+  }
+</script>
+</body>
+</html>
