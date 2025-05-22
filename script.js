@@ -1,36 +1,20 @@
-document.getElementById('openLookbook').addEventListener('click', () => {
-  alert("Lookbook coming next!");
-});
+  function toggleMenu() {
+    document.getElementById("navbar").classList.toggle("active");
+  }
 
+  let currentSlide = 0;
 
-// Lookbook modal control
-document.getElementById("openLookbook").addEventListener("click", () => {
-  document.getElementById("lookbookModal").classList.remove("hidden");
-});
+  function moveSlide(direction) {
+    const track = document.querySelector('.testimonial-track');
+    const wrapper = document.querySelector('.testimonial-wrapper');
+    const testimonials = document.querySelectorAll('.testimonial');
+    const testimonialsPerPage = 3;
+    const totalSlides = Math.ceil(testimonials.length / testimonialsPerPage);
 
-document.getElementById("closeLookbook").addEventListener("click", () => {
-  document.getElementById("lookbookModal").classList.add("hidden");
-});
+    currentSlide += direction;
+    if (currentSlide < 0) currentSlide = 0;
+    if (currentSlide > totalSlides - 1) currentSlide = totalSlides - 1;
 
-// Animate numbers
-const counters = document.querySelectorAll('.counter');
-counters.forEach(counter => {
-  counter.innerText = '0';
-  const updateCounter = () => {
-    const target = +counter.getAttribute('data-target');
-    const current = +counter.innerText;
-    const increment = target / 200;
-
-    if(current < target) {
-      counter.innerText = $`{Math.ceil(current + increment)}`;
-      setTimeout(updateCounter, 10);
-    } else {
-      counter.innerText = target;
-    }
-  };
-  updateCounter();
-});
-
-document.getElementById("themeToggle").addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-});
+    const slideWidth = wrapper.offsetWidth;
+    track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+  }
